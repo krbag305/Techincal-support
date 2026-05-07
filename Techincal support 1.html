@@ -1,0 +1,182 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Technical Pro - الدعم الفني الذكي</title>
+    <!-- Tailwind CSS للتصميم -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #f0f2f5; 
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .terminal-box {
+            background-color: #0d1117;
+            color: #39ff14;
+            font-family: 'Courier New', Courier, monospace;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="w-full max-w-md bg-white min-h-[600px] md:rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+        
+        <!-- شاشة تسجيل الدخول -->
+        <div id="login-screen" class="p-8 flex-grow flex flex-col justify-center">
+            <div class="text-center mb-8">
+                <div class="bg-blue-600 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg rotate-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">بوابة الدعم الفني</h1>
+                <p class="text-gray-500">نظام التشخيص والإصلاح الذكي</p>
+            </div>
+            
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">اسم الفني</label>
+                    <input type="text" id="username" required placeholder="مثلاً: عبد الله" 
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">الرتبة / المسمى</label>
+                    <input type="text" id="job-title" required placeholder="مثلاً: مهندس شبكات" 
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 active:scale-95 transition shadow-lg shadow-blue-200">
+                    تشغيل النظام
+                </button>
+            </form>
+        </div>
+
+        <!-- لوحة التحكم الرئيسية -->
+        <div id="dashboard" class="hidden flex-grow flex flex-col">
+            <!-- الهيدر -->
+            <div class="bg-blue-600 p-6 text-white">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 id="display-name" class="text-xl font-bold"></h2>
+                        <span id="display-title" class="text-xs bg-blue-500 px-2 py-1 rounded-full"></span>
+                    </div>
+                    <button onclick="location.reload()" class="bg-white/20 p-2 rounded-lg hover:bg-white/30 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- محتوى التحكم -->
+            <div class="p-5 flex-grow space-y-6 overflow-y-auto">
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="startAction('إعادة تهيئة الشبكة', '🌐')" class="flex flex-col items-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition active:bg-blue-50 group">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">🌐</div>
+                        <span class="text-sm font-bold text-gray-700">إصلاح الشبكة</span>
+                    </button>
+                    
+                    <button onclick="startAction('فحص الذاكرة والمعالج', '⚡')" class="flex flex-col items-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition active:bg-blue-50 group">
+                        <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">⚡</div>
+                        <span class="text-sm font-bold text-gray-700">فحص النظام</span>
+                    </button>
+
+                    <button onclick="startAction('تحديث قواعد البيانات', '💾')" class="flex flex-col items-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition active:bg-blue-50 group">
+                        <div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">💾</div>
+                        <span class="text-sm font-bold text-gray-700">تحديث البيانات</span>
+                    </button>
+
+                    <button onclick="startAction('تأمين الاتصال السحابي', '🔒')" class="flex flex-col items-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition active:bg-blue-50 group">
+                        <div class="w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition">🔒</div>
+                        <span class="text-sm font-bold text-gray-700">تأمين</span>
+                    </button>
+                </div>
+
+                <!-- شاشة السجلات التقنية -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-gray-500">سجل العمليات (Terminal)</h3>
+                        <div id="status-indicator" class="hidden items-center text-[10px] text-green-500 font-bold uppercase tracking-wider">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-1 pulse-animation"></span> جاري المعالجة
+                        </div>
+                    </div>
+                    <div id="log-box" class="terminal-box h-44 p-4 rounded-xl text-[11px] overflow-y-auto leading-relaxed border border-gray-800">
+                        <span class="opacity-50 text-white">> نظام التشغيل v2.0.4 جاهز للعمل...</span><br>
+                        <span class="opacity-50 text-white">> بانتظار أوامر المستخدم...</span><br>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فوتر بسيط -->
+            <div class="p-4 bg-gray-50 text-center text-[10px] text-gray-400 border-t">
+                جميع الحقوق محفوظة لنظام الدعم الفني الذكي © 2024
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const loginScreen = document.getElementById('login-screen');
+        const dashboard = document.getElementById('dashboard');
+        const logBox = document.getElementById('log-box');
+        const statusInd = document.getElementById('status-indicator');
+
+        loginForm.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('username').value;
+            const title = document.getElementById('job-title').value;
+            
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('display-title').innerText = title;
+            
+            loginScreen.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+            addLog(`تم تسجيل الدخول بنجاح. مرحباً فني ${name}`, 'white');
+        };
+
+        function addLog(msg, color = '#39ff14') {
+            const time = new Date().toLocaleTimeString('ar-SA');
+            const line = document.createElement('div');
+            line.style.color = color;
+            line.innerHTML = `<span class="opacity-40">[${time}]</span> > ${msg}`;
+            logBox.appendChild(line);
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function startAction(action, icon) {
+            statusInd.classList.remove('hidden');
+            statusInd.classList.add('flex');
+            
+            addLog(`استلام طلب: ${action} ${icon}...`, 'cyan');
+            
+            setTimeout(() => {
+                addLog(`جاري فحص المسارات والبروتوكولات...`);
+            }, 800);
+
+            setTimeout(() => {
+                addLog(`تم تنفيذ ${action} بنجاح ✅`, '#39ff14');
+                statusInd.classList.remove('flex');
+                statusInd.classList.add('hidden');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
+
+```
